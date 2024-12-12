@@ -14,6 +14,7 @@ export default function ProductFetcher({bigList,itemsPerPage}) {
 
     const startIndex = (page - 1) * itemsPerPage;
     const currentPageItems = bigList.slice(startIndex, startIndex + itemsPerPage);
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {

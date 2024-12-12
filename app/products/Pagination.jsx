@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ProductFetcher from "@/app/products/ProductFetcher";
 import { faker } from '@faker-js/faker'
 
@@ -6,7 +6,7 @@ export default function Pagination() {
     const itemsPerPage = 20;
     const fixedDate = "2024-11-15";
 
-    const bigList = [...Array(5000)].map((_, index) => ({
+    const bigList = [...Array(200)].map((_, index) => ({
         id: index + 1, // Incremental ID starting from 1
         name: faker.commerce.productName(), // Generate a product name
         category: faker.commerce.department(), // Generate a product category
@@ -17,6 +17,15 @@ export default function Pagination() {
         timestamp: new Date().toISOString(), // Current timestamp
         amount: faker.number.int({ min: 1000, max: 10000 }), // Random amount between 1000 and 10000
     }));
+    useEffect(() => {
+        let bigStorageList = JSON.parse(localStorage.getItem("products") || "[]");
+        if (bigStorageList && bigStorageList.length > 0) {
+            console.log("There is already array in localStorage "+ bigStorageList.length);
+        }else{
+
+            localStorage.setItem("products", JSON.stringify(bigList));
+        }
+    },[])
 
 
 
